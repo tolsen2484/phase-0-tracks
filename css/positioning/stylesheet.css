@@ -1,0 +1,21 @@
+#octopus { 
+	display: flex; 
+	justify-content: center;  
+	margin: auto; 
+}
+
+#hat { 
+	position:relative;
+ 	top:80px;
+	display: flex; 
+	justify-content: center;  
+	margin: auto; 
+}
+
+#glasses { 
+	position:relative;
+ 	bottom:190px;
+	display: flex; 
+	justify-content: center;  
+	margin: auto;
+}

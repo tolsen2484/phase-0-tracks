@@ -9,9 +9,17 @@ section.job {
   margin-bottom: 2%;
  }
 
+ .volunteer-gig > ul li { font-size: 1.1em; }
+
  .lists {
  	font-size: 0.8em;
  }
+
+.pseudoselector:focus {
+	color: green;
+	background-color: black;
+	padding: 10px;
+}
 
 
  

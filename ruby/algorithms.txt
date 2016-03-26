@@ -1,0 +1,43 @@
+Release 0: 
+
+-step into the elevator and turn 180 degrees
+-wait until elevator doors close
+-locate the lit numbers on the left or right side of doors
+-until you hear a response, or until you have attempted five times:
+	-ask "which floor"?
+	-wait 5 seconds for a response
+-if provided a number:
+	-scan the lit numbers until number is located
+		-if number cannot be found
+			-say "number cannot be found"
+	-lightly press the lit number until it is red
+	-wait until the doors open
+-mission accomplished, follow your leader out the door
+
+
+Release 1:
+
+Morning Stretch
+
+-Wait until eyes are at least half-way open
+-Turn TV on 
+-Start hamstring stretch:
+	-lunge towards the right foot until good pressure is applied
+	-hold lunge until 30 seconds is reached
+		-mental count starting with zero
+		-add one to the count
+	-release and take a deep breath
+	-lunge towards the left side and repeat steps
+-Start shoulder stretch:
+	-bring left arm across the body and hold with the right arm
+	-hold stretch until 30 seconds is reached
+		-mental count starting with zero
+		-add one to the count
+	-release and take a deep breath
+	-swith arms and repeat
+-if eyes are not fully opened still
+	-jog to the keurig machine
+	-select bold coffee and make a cup
+-otherwise
+	-pinch self to make sure you are not still dreaming
+		

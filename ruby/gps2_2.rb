@@ -33,7 +33,7 @@ end
 # output:
   # output updated hash
   
-def add_item(grocery_list, new_item, new_quant)
+def add_item(grocery_list, new_item, new_quant=1)
     grocery_list[new_item] = new_quant
     p grocery_list
 end

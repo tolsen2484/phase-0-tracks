@@ -1,10 +1,10 @@
-
 class Santa
 
 	def initialize(gender, ethnicity)
+		p 'initializing Santa instance ...'
 		@reindeer_rankings = ["Rudolph", "Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen"]
 		@age = 0
-		p 'initializing Santa instance ...'
+		
 	end
 
 	def speak
@@ -17,21 +17,16 @@ class Santa
 
 end
 
-#driver code 
-
-santa_con = Santa.new
-santa_con.speak
-santa_con.eat_milk_and_cookies("Macadamia Nut")
-
-
-#adding Santa instances to empty array for release 1
 santas = []
-santas << Santa.new("agender", "black")
-santas << Santa.new("female", "Latino")
-santas << Santa.new("bigender", "white")
-santas << Santa.new("male", "Japanese")
-santas << Santa.new("female", "prefer not to say")
-santas << Santa.new("gender fluid", "Mystical Creature (unicorn)")
-santas << Santa.new("N/A", "N/A")
 
-santas.each { |santa|  }
+santa_genders = ["agender", "female", "bigender", "male", "female", "gender fluid", "N/A"]
+santa_ethnicities = ["black", "Latino", "white", "Japanese-African", "prefer not to say", "Mystical Creature (unicorn)", "N/A"]
+
+santa_genders.length.times do |i|
+  santas << Santa.new(santa_genders[i], santa_ethnicities[i])
+end
+
+santas.each { |santa| santa.speak } 
+
+
+

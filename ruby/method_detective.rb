@@ -1,3 +1,5 @@
+#5.1
+
 # Replace in the "<???>" with the appropriate method (and arguments, if any).
 # Uncomment the calls to catch these methods red-handed.
 
@@ -72,3 +74,5 @@
 #=> 4
 
 	p "How many times does the letter ‘a’ appear in this string?".count("a")
+
+

@@ -1,12 +1,9 @@
-#reverse first and last name
-#split first, reverse, then join
-
 def swap_names(name)
-	split = name.split(" ")
-	swap = split.reverse.join(" ")
+  split = name.split(" ")
+  swap = split.reverse.join(" ")
 end
 
-swap_names("Bob Smith")
+p swap_names("Bob Smith")
 
 
 #Changing all of the vowels (a, e, i, o, or u) to the next vowel in 'aeiou', 
@@ -15,40 +12,46 @@ swap_names("Bob Smith")
 
 def next_letters(string)
 
-	string = swap_names(string)
-	
-	letters = string.split("")
-	
-	
-	next_letters = letters.map! do |letter|
-		next_vowel?(letter)
-	end
-	
-	next_letters.join("")
-	
+  string = swap_names(string)
+  
+  letters = string.split("")
+  
+  
+  next_letters = letters.map! do |letter|
+    next_vowel?(letter)
+  end
+  
+  next_letters.join("")
+  
+  
 end
 
-	
+  
 def next_vowel?(letter)
-	
-vowels = ["a","e","i","o","u"]
+  
+vowels = ["a","e","i","o","u","A","E","I","O","U"]
 
-	if letter == "u"
-		letter = "a"
-	elsif letter == " "
-		letter = " "
-	elsif vowels.include?(letter)
-		letter = vowels[vowels.index(letter) + 1]
-	elsif letter == "d" || letter == "h" || letter =="n" || letter == "t"
-		letter = letter.next.next
-	else 
-		letter = letter.next
-	end
+
+  if letter == "u"
+    letter = "a"
+  elsif letter == "U"
+    letter = "A"
+  elsif letter == " "
+    letter = " "
+  elsif vowels.include?(letter)
+    letter = vowels[vowels.index(letter) + 1]
+  elsif letter == "d" || letter == "h" || letter =="n" || letter == "t"
+    letter = letter.next.next
+  elsif letter == "D" || letter == "H" || letter =="N" || letter == "T"
+    letter = letter.next.next
+  else 
+    letter = letter.next
+  end
 
 end
 
-	
-next_letters("felicia torres")
+  
+p next_letters("Felicia Torres")
 
 
 #stores names until user types 'quit'. after user quits, it will repeat all names they inputted
@@ -56,11 +59,11 @@ next_letters("felicia torres")
 storage = []
 name = ""
 
-until name == "quits"
-	puts "What is your name?"
-	name = gets.chomp
-	p "Your name is now: " + next_letters(name) + "!"
-	storage << name
+until name == "quit"
+  puts "Type in a name (type 'quit' to exit program)"
+  name = gets.chomp
+  p "Your name is now: " + next_letters(name) + "!"
+  storage << name
 end
 
-storage.each {|i| puts "#{i} aka " + next_letters(i) }
+storage.each {|i| puts "Hello #{i} aka " + next_letters(i) }

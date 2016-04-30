@@ -39,30 +39,34 @@ rover.dog_years(35)
 #initialized method and at least two other instance methods
 
 
-class Weight_lifting
+class Karate
 
   def initialize
-    p "Initializing new weight lifting instance..."
+    puts "Initializing new killer combos..."
   end
 
-  def sets(repetition)
-    repetition.times { p "lift" }
+  def punch(num_of_punches)
+    num_of_punches.times { p "super punch" }
   end
 
-  def running(minutes)
-    p "You've ran for #{minutes} minutes"
-    minutes
+  def kick(num_of_kicks)
+    num_of_kicks.times { p "kool kick" }
+  end
+    
+  def super_move(num)
+    puts "Like...omg, that's like #{num} super moves"
   end
 
 end
 
-workout = []
+combos = []
 
-50.times { workout << weight_lifter = Weight_lifting.new }
+50.times { combos << Karate.new }
 
 
-workout.each do |i|
-  i.sets(2)
-  i.running(20)
+combos.each do |i|
+  i.punch(5)
+  i.kick(4)
+  i.super_move(10)
 end
 

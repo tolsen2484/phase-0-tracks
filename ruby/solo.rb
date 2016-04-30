@@ -34,7 +34,7 @@ class Robot_fighters
 	attr_accessor :name
 	
 	def initialize(name)
-		p "initializing your super robot named #{name}"
+		puts "initializing your super robot named #{name}"
 		@name = name
 		@level = 1
 		@bonus_damage = 0
@@ -46,30 +46,29 @@ class Robot_fighters
 	
 	def build_character
 		@level += 1
-		p "your level increased to #{@level}! bonus damage of +1"
+		puts "your level increased to #{@level}! bonus damage of +1"
 		@bonus_damage += 1
 	end
 	
 	def add_weapon
-		 p "you earned a weapon: #{@weapon.sample}. Bonus damage of +1"
+		 puts "you earned a weapon: #{@weapon.sample}. Bonus damage of +1"
 		 @bonus_damage += 1
 	end
 		
 	def attack
 		@hit = rand(10)
 		total_attack = @hit + @bonus_damage
-		p "#{@name} attacks enemy for #{total_attack} damage"
-		#{@name}_damage = total_attack
+		puts "#{@name} attacks enemy for #{total_attack} damage"
 		enemy_attack = rand(10)
-		p "enemy attacks for #{enemy_attack} damage"
+		puts "enemy attacks for #{enemy_attack} damage"
 		if total_attack > enemy_attack
-			p "You WON! Increase one level"
+			puts "You WON! Increase one level"
 			@level += 1
 			@wins += 1
 		elsif total_attack == enemy_attack
-			p "Ooooh, tie. No one wins =("
+			puts "Ooooh, tie. No one wins =("
 		else
-			p "You lost. You lose one level"
+			puts "You lost. You lose one level"
 			@level -= 1
 			@losses += 1
 		end

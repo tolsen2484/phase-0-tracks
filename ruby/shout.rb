@@ -8,6 +8,11 @@ module Shout
   end
 end
 
+#driver code
+
+# p Shout.yell_angrily("WTH")
+# p Shout.yell_happily("What the happy face!")
+
 class Traffic
   include Shout
 end
@@ -16,17 +21,16 @@ class Parents
   include Shout
 end
 
+
+
 traffic = Traffic.new
-p traffic.yell_angrily("Learn to drive")
-p traffic.yell_happily("Learn to drive please. It's for all our safety")
+puts traffic.yell_angrily("Learn to drive")
+puts traffic.yell_happily("Learn to drive please. It's for all our safety")
 
 parents = Parents.new
-p parents.yell_angrily("I don't want to be grounded")
-p parents.yell_happily("I would love to be grounded...a well balanced grounded individual")
+puts parents.yell_angrily("You're grounded")
+puts parents.yell_happily("You're grounded! But now we can spend quality time together...")
 
-#driver code
 
-# p Shout.yell_angrily("WTH")
-# p Shout.yell_happily("What the happy face!")
 
 

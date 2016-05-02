@@ -1,4 +1,5 @@
 #add TodoList class for todo_list_spec.rb
+#pairing with Melissa Chaparro
 
 class TodoList
 	def initialize(items)

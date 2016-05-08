@@ -1,7 +1,10 @@
+
 // pseudocode
 // create new function that reverses string
-// for each letter, starting with the string length minus 1, store it in an empty
-// variable and return the variable.
+//   for each letter, starting with the string length minus 1, store it in an empty
+//     variable 
+//   minus 1 until reaching first letter
+//   return the variable.
 
 
 function reverse(str) {
@@ -11,7 +14,7 @@ for (var i = (str.length - 1); i >= 0; i--)
 return rev
 }
 
-// driver code
+// drivercode
 console.log(reverse("Loop over me!"));
 
 var revWord = (reverse("redrum"));

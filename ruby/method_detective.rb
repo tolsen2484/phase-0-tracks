@@ -6,11 +6,11 @@
 # When there's more than one suspect who could have
 # committed the crime, add additional calls to prove it.
 
-# “iNvEsTiGaTiOn”.<???>
+# "iNvEsTiGaTiOn".<???>
 # => “InVeStIgAtIoN”
     p "iNvEsTiGaTiOn".swapcase
 
-# “zom”.<???>
+# "zom".<???>
 # => “zoom”
     p "zom".insert(1, "o")
 
@@ -64,7 +64,8 @@
 	string.slice!(10)
 	p string
 
-#“z”.<???>
+
+# "z".<???>
 # => 122 
 # (What is the significance of the number 122 in relation to the character z?)
 	p "z".ord
@@ -74,5 +75,4 @@
 #=> 4
 
 	p "How many times does the letter ‘a’ appear in this string?".count("a")
-
 

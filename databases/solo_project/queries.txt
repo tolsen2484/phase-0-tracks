@@ -1,0 +1,74 @@
+
+###Display the information in one table (either table is fine).
+
+$ sqlite3 fav_show.db
+SQLite version 3.8.7.2 2014-11-18 20:57:56
+Enter ".help" for usage hints.
+sqlite> .tables
+favorite_shows  friends
+sqlite> SELECT * FROM favorite_shows;
+1|Foxx Knews
+2|Sex and the City
+3|The Office
+4|Game of Thrones
+5|Master Chef
+
+###Update an item that meets some condition (you can choose a condition that makes sense).
+
+	>>>sqlite> UPDATE favorite_shows SET show="Master Chef - Fried Foods Special"
+   	...> WHERE show="Master Chef";
+
+
+###Display the information in both tables using one query.
+
+	>>>sqlite> SELECT * FROM friends, favorite_shows WHERE friends.show_id = favorite_shows.id;
+1|Fat Larry|false|5|5|Master Chef - Fried Foods Special
+2|Curly Sue|false|3|3|The Office
+4|Lazy Luo|false|5|5|Master Chef - Fried Foods Special
+5|Sassy Sammy|false|2|2|Sex and the City
+6|Toothless Tammy|false|1|1|Foxx Knews
+7|Becky Boo Boo|false|4|4|Game of Thrones
+8|Bob|false|4|4|Game of Thrones
+
+
+
+###Display a narrower selection of columns (fewer columns than all of them, in other words) from both tables using one query.
+
+sqlite> SELECT friends.name, favorite_shows.show FROM friends JOIN favorite_show
+s ON friends.show_id = favorite_shows.id;
+Fat Larry|Master Chef - Fried Foods Special
+Curly Sue|The Office
+Lazy Luo|Master Chef - Fried Foods Special
+Sassy Sammy|Sex and the City
+Toothless Tammy|Foxx Knews
+Becky Boo Boo|Game of Thrones
+Bob|Game of Thrones
+
+
+###Delete an item that meets some condition (you can choose a condition that makes sense).
+
+sqlite> DELETE FROM friends WHERE no_favorite="true";
+sqlite> SELECT * FROM friends;
+1|Fat Larry|false|5
+2|Curly Sue|false|3
+4|Lazy Luo|false|5
+5|Sassy Sammy|false|2
+6|Toothless Tammy|false|1
+7|Becky Boo Boo|false|4
+8|Bob|false|4
+sqlite>
+
+
+###There are lots of different kinds of joins. What are they? 
+
+INNER JOIN: Returns all rows when there is at least one match in BOTH tables
+LEFT JOIN: Return all rows from the left table, and the matched rows from the right table
+RIGHT JOIN: Return all rows from the right table, and the matched rows from the left table
+FULL JOIN: Return all rows when there is a match in ONE of the tables
+
+Can you apply different conditions to a join to change what's displayed? --yes
+
+Can you bookmark any good diagrams that will help you tell different joins apart in the future? --yes  
+	-http://www.codeproject.com/Articles/33052/Visual-Representation-of-SQL-Joins
+	-http://www.codeproject.com/KB/database/Visual_SQL_Joins/Visual_SQL_JOINS_orig.jpg
+

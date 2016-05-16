@@ -1,0 +1,20 @@
+sqlite> SELECT users.last_name, users.first_name, stars, comment, businesses.nam
+e FROM reviews JOIN users ON users.id = reviews.user_id JOIN businesses ON revie
+ws.business_id = businesses.id;
+
+
+last_name   first_name  stars       comment     name
+----------  ----------  ----------  ----------  ----------------------------
+Pitt        Bradford    4           Awesome!    Grundy Hollow Wedding Chapel
+Kaling      Mandy       3           It was ok   Grundy Hollow Wedding Chapel
+Kaling      Mandy       1           Absolutely  Amir's Towing
+
+
+
+sqlite> SELECT users.last_name, users.first_name, stars, comment, businesses.nam
+e FROM reviews JOIN users ON users.id = reviews.user_id JOIN businesses ON revie
+ws.business_id = businesses.id WHERE businesses.id = 1;
+last_name   first_name  stars       comment     name
+----------  ----------  ----------  ----------  ----------------------------
+Pitt        Bradford    4           Awesome!    Grundy Hollow Wedding Chapel
+Kaling      Mandy       3           It was ok   Grundy Hollow Wedding Chapel

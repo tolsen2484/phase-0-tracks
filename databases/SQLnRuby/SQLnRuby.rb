@@ -43,19 +43,19 @@ db.results_as_hash = true
 
 
 # # drivercode
-db.execute("INSERT INTO superhero (name, superhero_name) 
-  VALUES ('Pablo Patterson', 'El Guaca Mole')")
+# db.execute("INSERT INTO superhero (name, superhero_name) 
+#   VALUES ('Pablo Patterson', 'El Guaca Mole')")
 
-db.execute("INSERT INTO threat_level (threat_level_number) 
-  VALUES ('Level 1 - low threat')")
-db.execute("INSERT INTO threat_level (threat_level_number) 
-  VALUES ('Level 2 - some threat')")
-db.execute("INSERT INTO threat_level (threat_level_number) 
-  VALUES ('Level 3 - medium threat')")
-db.execute("INSERT INTO threat_level (threat_level_number) 
-  VALUES ('Level 4 - high threat')")
-db.execute("INSERT INTO threat_level (threat_level_number) 
-  VALUES ('Level 5 - Extreme threat')")
+# db.execute("INSERT INTO threat_level (threat_level_number) 
+#   VALUES ('Level 1 - low threat')")
+# db.execute("INSERT INTO threat_level (threat_level_number) 
+#   VALUES ('Level 2 - some threat')")
+# db.execute("INSERT INTO threat_level (threat_level_number) 
+#   VALUES ('Level 3 - medium threat')")
+# db.execute("INSERT INTO threat_level (threat_level_number) 
+#   VALUES ('Level 4 - high threat')")
+# db.execute("INSERT INTO threat_level (threat_level_number) 
+#   VALUES ('Level 5 - Extreme threat')")
 
 
 #creates and inserts new heroes
@@ -65,129 +65,97 @@ end
 
 
 ##creates 10 fake names and 10 fake superhero names
-10.times do
-  create_heroes(db, Faker::Name.name, Faker::Superhero.name, rand(1..5), rand(1..15))
-end
+# 10.times do
+#   create_heroes(db, Faker::Name.name, Faker::Superhero.name, rand(1..5), rand(1..15))
+# end
 
-15.times do
-  db.execute("INSERT INTO powers (power) VALUES (?)", [Faker::Superhero.power])
-end
+##create 15 super powers list
+# 15.times do
+#   db.execute("INSERT INTO powers (power) VALUES (?)", [Faker::Superhero.power])
+# end
 
 
 # # use ORM to retrieve data 
-superhero = db.execute("SELECT * FROM superhero")
-superhero.each do |data|
-  puts "#{data['superhero_name']}'s true identity is #{data['name']}"
+# superhero = db.execute("SELECT * FROM superhero")
+# superhero.each do |data|
+#   puts "#{data['superhero_name']}'s true identity is #{data['name']}"
+# end
+
+
+
+###methods for the input that employees will enter
+def add_hero(db, name, superhero_name, threat_level, power_id)
+  create_heroes(db, name, superhero_name, threat_level, power_id)
+  puts "You successfully added #{superhero_name}"
+end
+
+##test add_hero
+# p add_hero(db, "Tolsi", "Terminatorrr", 5, 10)
+
+
+## test delete_hero
+def delete_hero(db, superhero_name)
+  db.execute("DELETE FROM superhero WHERE superhero_name = ?", [superhero_name])
+end
+
+# p delete_hero(db, "Terminatorrr")
+
+
+##show_report without the id numbers
+def show_report(db)
+   puts db.execute("SELECT name, superhero_name, powers.power, threat_level.threat_level_number FROM superhero JOIN powers ON powers.id = superhero.power_id JOIN threat_level ON threat_level.id = superhero.threat_level_id")
+end
+
+# p show_report(db)
+
+
+##list starting from highest threat number
+def highest_threat(db)
+   puts db.execute("SELECT superhero_name, threat_level.threat_level_number FROM superhero JOIN threat_level ON threat_level.id = superhero.threat_level_id ORDER BY threat_level_number DESC")
+end
+
+# p highest_threat(db)
+
+
+loop do 
+
+  puts "Please input a number: "
+  puts "1: add hero"
+  puts "2: delete hero"
+  puts "3: show superhero report"
+  puts "4: highest threat list"
+  puts "5: to exit program"
+  
+  input = gets.chomp.to_i
+
+   if input == 1
+     puts "Input: name, superhero_name, threat_level, power_id (type 'cancel' if you want to cancel input)"
+     answer = gets.chomp
+        if answer == "cancel"
+          break
+        end
+     array = answer.split(" ,")
+     add_hero(db, array[0], array[1], array[2], array[3])
+
+   elsif input == 2
+     puts "Which hero will be deleted? (type 'cancel' if you want to cancel deletion)"
+     answer = gets.chomp
+        if answer == "cancel"
+          break
+        end
+     delete_hero(db, "#{answer}")
+
+   elsif input == 3
+      show_report(db)
+
+   elsif input == 4
+      highest_threat(db) 
+
+   elsif input == 5 
+      break  
+
+   else puts "Please input valid number" 
+  end
 end
 
 
-
-###methods for the input employees will enter
-
-# add managers to the table managers
-# def add_hero(db, name, superhero_name, threat_level, power)
-#   create_heroes(db, name, superhero_name, threat_level, power)
-# end
-
-# # delete managers from table managers
-# def delete_hero(db, name, superhero_name, threat_level, power)
-#   db.execute("DELETE FROM superhero WHERE name = ?", [name])
-# end
-
-# # add items to the table items
-# def add_item(store_database, item_name, quantity, price)
-#   store_database.execute("INSERT INTO items (item_name, quantity, price) 
-#     VALUES (?, ?, ?)", [item_name, quantity, price])
-# end
-
-# # delete item by name
-# def delete_item(store_database, item_name)
-#   store_database.execute("DELETE FROM items WHERE item_name = ?", [item_name])
-# end
-
-# # add customer to the table customers
-# def add_customer(store_database, customer_name, card_number)
-#   store_database.execute("INSERT INTO customers (customer_name, card_number) 
-#     VALUES (?, ?)", [customer_name, card_number])
-# end
-
-# # delete customer from the table customers
-# def delete_customer(store_database, customer_name)
-#   store_database.execute("DELETE FROM customers WHERE customer_name = ?", [customer_name])
-# end
-
-# def user_interface(store_database)
-#   puts "Please select one of following the options: "
-#   puts "Type 1 for adding an item"
-#   puts "Type 2 for deleting an item"
-#   puts "Type 3 for adding a customer"
-#   puts "Type 4 for deleting a customer"
-#   puts "Type 5 for adding a manager"
-#   puts "Type 6 for deleting a manager"
-#   user_selected_option = gets.chomp.to_i
-
-#   if user_selected_option == 1
-#     puts "Enter the item name you want to add: "
-#     item_to_add = gets.chomp
-#     puts "Enter the quantity: "
-#     item_quantity = gets.chomp.to_i
-#     puts "Enter the price: "
-#     item_price = gets.chomp.to_i
-#     add_items(store_database, item_to_add, item_quantity, item_price)
-
-#   elsif user_selected_option == 2
-#     puts "Enter the name of the item to delete: "
-#     item_to_delete = gets.chomp
-#     delete_item(store_database, item_to_delete)
-
-#   elsif user_selected_option == 3
-#     puts "Enter customer's name: "
-#     customer_to_add = gets.chomp
-#     puts "Enter customer's card number: "
-#     customer_card_number = gets.chomp.to_i
-#     add_customer(store_database, customer_to_add, customer_card_number)
-
-#   elsif user_selected_option == 4
-#     puts "Enter the name of the customer to delete: "
-#     customer_to_delete = gets.chomp
-#     delete_customer(store_database, customer_to_delete)
-
-#   elsif user_selected_option == 5
-#     puts "What's the manager's name?"
-#     manager_name = gets.chomp
-#     puts "What is the manager's idn?"
-#     manager_number = gets.chomp.to_i
-#     add_manager(store_database, manager_name, manager_number)
-
-#   elsif user_selected_option == 6
-#     puts "Enter name of manager to delete: "
-#     manager_to_delete = gets.chomp
-#     delete_manager(store_database, manager_to_delete)
-#   else
-#     puts "Sorry, I did not get that!"
-#   end
-# end
-
-
-# # USER INTERFACE
-
-# # manager identification number: 76890
-# loop do 
-
-#   puts "-----------"
-#   puts "Enter your 5-digit identification number(idn), or type '0' to exit:"
-#   manager_idn = gets.chomp.to_i
-#   # verify if the number matches the database
-#   manager_identification(store_database, manager_idn)
-#   # break out of the loop
-#   break if manager_idn == 0
-
-#   if manager_identification(store_database, manager_idn) == true
-#     # call the method
-#     user_interface(store_database)
-#     break
-#   else
-#     puts "You are not authorized to access the database"
-#   end
-
-# end

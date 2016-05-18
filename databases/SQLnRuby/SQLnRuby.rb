@@ -15,14 +15,16 @@ create_table_superhero = <<-SQL
     name VARCHAR(255),
     superhero_name VARCHAR(255),
     threat_level_id INT,
+    quote_id INT,
     FOREIGN KEY (threat_level_id) REFERENCES threat_level(id)
+    FOREIGN KEY (quote_id) REFERENCES quotes(id)
   )
 SQL
 
 create_table_threatlevel = <<-SQL
   CREATE TABLE IF NOT EXISTS threat_level(
     id INTEGER PRIMARY KEY,
-    threat_level_number INT
+    threat_level_number VARCHAR(255)
   )
 SQL
 
@@ -34,79 +36,61 @@ create_table_quotes = <<-SQL
 SQL
 
 # # creates tables from above 
-# db.execute(create_table_superhero)
-# db.execute(create_table_threatlevel)
-# db.execute(create_table_quotes)
+db.execute(create_table_superhero)
+db.execute(create_table_threatlevel)
+db.execute(create_table_quotes)
 db.results_as_hash = true
 
 
 # # drivercode
-# db.execute("INSERT INTO superhero (name, superhero_name) 
-#   VALUES ('Pablo Patterson', 'El Guaca Mole')")
+db.execute("INSERT INTO superhero (name, superhero_name) 
+  VALUES ('Pablo Patterson', 'El Guaca Mole')")
 
-# db.execute("INSERT INTO threat_level (threat_level_number) 
-#   VALUES (10)")
+db.execute("INSERT INTO threat_level (threat_level_number) 
+  VALUES ('Level 1 - low threat')")
+db.execute("INSERT INTO threat_level (threat_level_number) 
+  VALUES ('Level 2 - some threat')")
+db.execute("INSERT INTO threat_level (threat_level_number) 
+  VALUES ('Level 3 - medium threat')")
+db.execute("INSERT INTO threat_level (threat_level_number) 
+  VALUES ('Level 4 - high threat')")
+db.execute("INSERT INTO threat_level (threat_level_number) 
+  VALUES ('Level 5 - Extreme threat')")
 
 # db.execute("INSERT INTO quotes (quote) 
 #   VALUES ('blah blah blah')")
 
 
 #creates and inserts new heroes
-def create_heroes(db, name, superhero_name)
-  db.execute("INSERT INTO superhero (name, superhero_name) VALUES (?, ?)", [name, superhero_name])
+def create_heroes(db, name, superhero_name, threat_level, quote)
+  db.execute("INSERT INTO superhero (name, superhero_name, threat_level_id, quote_id) VALUES (?, ?, ?, ?)", [name, superhero_name, rand(1..5), "blah blah"])
 end
 
 ##creates 10 fake names and 10 fake superhero names
 10.times do
-  create_heroes(db, Faker::Name.name, Faker::Superhero.name)
+  create_heroes(db, Faker::Name.name, Faker::Superhero.name, rand(1..5), "blah blah")
 end
 
 
 # # use ORM to retrieve data 
 superhero = db.execute("SELECT * FROM superhero")
 superhero.each do |data|
-  puts "#{data['name']}'s true identity is #{data['superhero_name']}"
+  puts "#{data['superhero_name']}'s true identity is #{data['name']}"
 end
 
-# superhero = db.execute("SELECT * FROM superhero")
 
 
-# superhero.each do |super|
-#  puts "#{super['name']} is #{super['superhero_name']}"
-# end
+###methods for the input employees will enter
 
-# create method that adds customers to database
-# def create_customers(store_database, customer_name, card_number)
-#   store_database.execute("INSERT INTO customers (customer_name, card_number) 
-#     VALUES (?, ?)", [customer_name, card_number])
-# end
+# add managers to the table managers
+def add_hero(db, name, superhero_name)
+  create_heroes(db, name, superhero_name)
+end
 
-# 100.times do
-#   create_customers(store_database, Faker::Name.name, Faker::Business.credit_card_number)
-# end
-
-# # create method that authorizes managers to modify data in the customers table
-# def manager_identification(store_database, manager_idn)
-#   managers = store_database.execute("SELECT idn FROM managers")
-#   managers.each do |manager|
-#     if manager['idn'] == manager_idn
-#       return true
-#     else
-#       return false
-#     end
-#   end
-# end
-
-# # add managers to the table managers
-# def add_manager(store_database, name, idn)
-#   store_database.execute("INSERT INTO managers (name, idn) 
-#     VALUES (?, ?)", [name, idn])
-# end
-
-# # delete managers from table managers
-# def delete_manager(store_database, name)
-#   store_database.execute("DELETE FROM managers WHERE name = ?", [name])
-# end
+# delete managers from table managers
+def delete_hero(db, name, superhero_name)
+  db.execute("DELETE FROM superhero WHERE name = ?", [name])
+end
 
 # # add items to the table items
 # def add_item(store_database, item_name, quantity, price)

@@ -15,9 +15,9 @@ create_table_superhero = <<-SQL
     name VARCHAR(255),
     superhero_name VARCHAR(255),
     threat_level_id INT,
-    quote_id INT,
-    FOREIGN KEY (threat_level_id) REFERENCES threat_level(id)
-    FOREIGN KEY (quote_id) REFERENCES quotes(id)
+    power_id INT,
+    FOREIGN KEY (threat_level_id) REFERENCES threat_level(id),
+    FOREIGN KEY (power_id) REFERENCES powers(id)
   )
 SQL
 
@@ -28,17 +28,17 @@ create_table_threatlevel = <<-SQL
   )
 SQL
 
-create_table_quotes = <<-SQL
-  CREATE TABLE IF NOT EXISTS quotes(
+create_table_powers = <<-SQL
+  CREATE TABLE IF NOT EXISTS powers(
     id INTEGER PRIMARY KEY,
-    quote VARCHAR(255)
+    power VARCHAR(255)
   )
 SQL
 
 # # creates tables from above 
 db.execute(create_table_superhero)
 db.execute(create_table_threatlevel)
-db.execute(create_table_quotes)
+db.execute(create_table_powers)
 db.results_as_hash = true
 
 
@@ -57,18 +57,20 @@ db.execute("INSERT INTO threat_level (threat_level_number)
 db.execute("INSERT INTO threat_level (threat_level_number) 
   VALUES ('Level 5 - Extreme threat')")
 
-# db.execute("INSERT INTO quotes (quote) 
-#   VALUES ('blah blah blah')")
-
 
 #creates and inserts new heroes
-def create_heroes(db, name, superhero_name, threat_level, quote)
-  db.execute("INSERT INTO superhero (name, superhero_name, threat_level_id, quote_id) VALUES (?, ?, ?, ?)", [name, superhero_name, rand(1..5), "blah blah"])
+def create_heroes(db, name, superhero_name, threat_level, power)
+  db.execute("INSERT INTO superhero (name, superhero_name, threat_level_id, power_id) VALUES (?, ?, ?, ?)", [name, superhero_name, rand(1..5), rand(1..15)])
 end
+
 
 ##creates 10 fake names and 10 fake superhero names
 10.times do
-  create_heroes(db, Faker::Name.name, Faker::Superhero.name, rand(1..5), "blah blah")
+  create_heroes(db, Faker::Name.name, Faker::Superhero.name, rand(1..5), rand(1..15))
+end
+
+15.times do
+  db.execute("INSERT INTO powers (power) VALUES (?)", [Faker::Superhero.power])
 end
 
 
@@ -83,14 +85,14 @@ end
 ###methods for the input employees will enter
 
 # add managers to the table managers
-def add_hero(db, name, superhero_name)
-  create_heroes(db, name, superhero_name)
-end
+# def add_hero(db, name, superhero_name, threat_level, power)
+#   create_heroes(db, name, superhero_name, threat_level, power)
+# end
 
-# delete managers from table managers
-def delete_hero(db, name, superhero_name)
-  db.execute("DELETE FROM superhero WHERE name = ?", [name])
-end
+# # delete managers from table managers
+# def delete_hero(db, name, superhero_name, threat_level, power)
+#   db.execute("DELETE FROM superhero WHERE name = ?", [name])
+# end
 
 # # add items to the table items
 # def add_item(store_database, item_name, quantity, price)
